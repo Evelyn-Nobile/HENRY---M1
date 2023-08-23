@@ -12,64 +12,65 @@ var a = 5;
 var b = 10;
 var c = function (a, b, c) {
   var x = 10;
-  console.log(x);
-  console.log(a);
+  console.log(x); //10
+  console.log(a); //8
   var f = function (a, b, c) {
     b = a;
-    console.log(b);
+    console.log(b); //8
     b = c;
     var x = 5;
   };
   f(a, b, c);
-  console.log(b);
+  console.log(b); //9
 };
 c(8, 9, 10);
-console.log(b);
-console.log(x);
+console.log(b); //10
+console.log(x); //1 porque x esta definida como 1 en el contexto global. Como no esta guardada en una variable no le asigno un espacio en memoria
 ```
 
 ```javascript
-console.log(bar);
-console.log(baz);
+console.log(bar); //undefined
+console.log(baz); //is not defined. Error. Lo de abajo ya no se ejecuta
 foo();
 function foo() {
   console.log("Hola!");
 }
 var bar = 1;
-baz = 2;
+baz = 2; // si tuviera el console.log de baz abajo de esta linea si me imprimiria 2
 ```
 
 ```javascript
 var instructor = "Tony";
-if (true) {
-  var instructor = "Franco";
+if (true) { //Si fuera false, no entra al bloque del if por lo tanto no se mostraria nada
+  var instructor = "Franco"; //solo se crean contextos nuevos con ejecucion de funciones. If no es funcion por lo tanto las dos variales instructor pertenecen al mismo contexto (global) por lo tanto se sobreescribe
 }
-console.log(instructor);
+console.log(instructor); //Franco
 ```
 
 ```javascript
-var instructor = "Tony";
-console.log(instructor);
-(function () {
+var instructor = "Tony"; 
+console.log(instructor); //Tony
+(function () { // (fn{})() --> funcion que se autoejecuta (anonima) o sea que se va a ejecutar apenas llegue a la linea 53. Se ejecuta una sola vez. Nuevo contexto de ejecucion
   if (true) {
-    var instructor = "Franco";
-    console.log(instructor);
+    var instructor = "Franco"; 
+    console.log(instructor); // Franco
   }
 })();
-console.log(instructor);
+
+console.log(instructor);//Tony
 ```
 
 ```javascript
-var instructor = "Tony";
-let pm = "Franco";
+var instructor = "Tony"; 
+let pm = "Franco";//No se le guarda espacio en memoria a let
 if (true) {
   var instructor = "The Flash";
   let pm = "Reverse Flash";
-  console.log(instructor);
-  console.log(pm);
+  console.log(instructor); //The Flash
+  console.log(pm); //Reverse Flash
 }
-console.log(instructor);
-console.log(pm);
+console.log(instructor); //The Flash
+console.log(pm); //Franco ---> por el scope. En el caso del if tengo llaves {} por lo tanto es un scope. Todo lo que no este rodeado de llaves, pertenece al scope global. TODO LO DECLARADO CON LET NACE Y MUERE DENTRO DE SU SCOPE  
 ```
 
 ### Coerción de Datos
@@ -77,22 +78,22 @@ console.log(pm);
 ¿Cuál crees que será el resultado de la ejecución de estas operaciones?:
 
 ```javascript
-6 / "3" //2
+6 / "3" //2 
 "2" * "3"//6
-4 + 5 + "px" //'9px'
+4 + 5 + "px" //'9px' 
 "$" + 4 + 5 //'$45'
 "4" - 2 //2
 "4px" - 2 //NaN
 7 / 0 //infinity
-{}[0] //{} ---> representa a un objeto vacio. Es igual a 'new Object()' //  undefined
+{}[0] //{} ---> representa a un objeto vacio. No existe la propiedad 0 dentro de este objeto//  undefined
 parseInt("09") //9
 5 && 2 //2
 2 && 5 //5
 5 || 0 // 5
 0 || 5 //5
-[3]+[3]-[10] // 23
-3>2>1  //false
-[] == ![] // true
+[3]+[3]-[10] // 23 
+3>2>1  //false   
+ [] == ![] // true
 
 // 6 / "3" // Resultado: 2
 // El operador / es un operador de división. JavaScript intentará convertir el segundo operando, que es "3" (cadena), en un número y luego realizará la división. Al convertir la cadena "3" a un número, se obtiene el valor 3, y la división de 6 entre 3 resulta en 2.
@@ -128,7 +129,7 @@ parseInt("09") //9
 // Similar al caso anterior, en este caso, el primer operando (2) es verdadero, pero el segundo operando (5) es el resultado de la operación completa porque ambos operandos son verdaderos.
 
 // 5 || 0 // Resultado: 5
-// El operador lógico || devuelve el primer operando si es verdadero. En este caso, el primer operando (5) es verdadero, por lo que el resultado será 5.
+// El operador lógico || devuelve el primer operando si es verdadero. En este caso, el primer operando (5) es verdadero, por lo que el resultado será 5. 
 
 // 0 || 5 // Resultado: 5
 // En este caso, el primer operando (0) es falso, por lo que JavaScript evalúa el segundo operando (5) y devuelve 5 como resultado.
@@ -145,7 +146,7 @@ parseInt("09") //9
 // El lado izquierdo [].toString() devuelve una cadena vacía "".
 // El lado derecho ![] se evalúa primero como !true y devuelve false.
 // Entonces, JavaScript intenta convertir "" en un booleano, y una cadena no vacía se considera verdadera en su forma booleana.
-// Finalmente, la comparación false == true se convierte a 0 == 1, que es false.
+// Finalmente, la comparación false == true se convierte a 0 == 1, que es false. Estan en distintos espacios de memoria. Son arrays distintos.
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -156,8 +157,8 @@ parseInt("09") //9
 
 ```javascript
 function test() {
-  console.log(a);
-  console.log(foo());
+  console.log(a); // undefined. En la fase de creacion se guarda undefined como valor de a
+  console.log(foo()); // 2 porque la funcion se guarda entera en la fase de creacion por lo tanto conocemos su valor
 
   var a = 1;
   function foo() {
@@ -174,14 +175,14 @@ Y el de este código? :
 var snack = "Meow Mix";
 
 function getFood(food) {
-  if (food) {
+  if (food) { //En la fase de ejecucion food toma el valor de false por lo tanto no entra al bloque if. Si fuera true me devolveria frieskies
     var snack = "Friskies";
     return snack;
   }
-  return snack;
+  return snack; //undefined
 }
 
-getFood(false);
+getFood(false); //Le guardo espacio de memoria al parametro o sea a food//undefined porque en la fase de creacion al no ejecutarse el bloque if, el valor de snack se mantuvo en undefined
 ```
 
 ### This
@@ -200,11 +201,11 @@ var obj = {
   },
 };
 
-console.log(obj.prop.getFullname());
+console.log(obj.prop.getFullname()); //Aurelio de Rosa. Entro a la propiedad prop del objeto obj y ejecuto la funcion getFullName. En esta funcion tengo un this que apunta al contexto de la funcion. Pero dentro de la funcion no tengo el valor de fullname por lo tanto se la pide al contexto de afuera (al anterior)
 
-var test = obj.prop.getFullname;
+var test = obj.prop.getFullname; //Guardo en la variable la funcion getFullName o sea que ahora test es una funcion// sacamos la funcion y la copiamos en el objeto global//entro a prop y de prop entro a getFullName//La diferencia con la linea anterior es que en la anterior se ejecuta la funcion por lo tanto se crea un nuevo contexto
 
-console.log(test());
+console.log(test());//la funcion test se ejecuta en el contexto global. En el contexto global fullname es undefined
 ```
 
 ### Event loop

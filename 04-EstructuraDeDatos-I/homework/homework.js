@@ -37,8 +37,6 @@ if(n === 0 || n === 1){ //verifica si n es 0 o 1 por ejemplo: n =5 ---> 5 no es 
   
  
 
-
-
 //El término "Fibonacci" se refiere a una secuencia matemática muy famosa conocida como "Secuencia de Fibonacci". 
 // Esta secuencia comienza con los números 0 y 1, y cada número subsiguiente es la suma de los dos números anteriores. 
 // La secuencia de Fibonacci sigue la siguiente regla:
@@ -100,6 +98,26 @@ Queue.prototype.dequeue = function(){
 }
 
 const newQueue = new Queue()
+
+function Stack (){
+  this.array= []
+}
+
+Stack.prototype.add = function (ele){
+  this.array.push(ele)
+
+}
+
+Stack.prototype.delete = function(){
+  return this.array.pop() //borra el valor y me lo devuelve
+}
+
+let newStack = new Stack()
+newStack.add(2) //[2,3,9]
+newStack.add(3)
+newStack.add(9)
+newStack.delete()
+
 /*⚠️ No modificar nada debajo de esta línea ⚠️*/
 module.exports = {
    Queue,
